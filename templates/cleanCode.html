@@ -1,0 +1,520 @@
+<!-- <!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>M2EBOT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0b0b16, #191970, #282863, #2d2dd1, #0c0c1d);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: white;
+        }
+        
+        .btn-primary-outline {
+            background-color: transparent;
+            border-color: #252f5d;
+            height: 50px; 
+            width: 45px;
+            color: #fff; 
+            border-radius: 8px;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .btn-infos{
+            background-color: #252f5d;
+            border-color: #3856da;
+            height: 35px; 
+            width: 100%;
+            border-radius: 8px;
+            text-align: start;
+            color: #ffdd59; /* Highlight color for the "Coming Soon" text */
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        .input-info{
+            background-color: transparent;
+            border-color: #252f5d;
+            height: 18px; 
+            width: 100px;
+            border-radius: 8px;
+            text-align: start;
+            padding-bottom: 32px;
+            color: #ffdd59; /* Highlight color for the "Coming Soon" text */
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .infos{
+            background-color: #252f5d;
+            border-color: #252f5d;
+            height: 40px; 
+            width: 80px;
+            color: #ffffff; 
+            border-radius: 8px;
+            text-align: start;
+            margin-bottom: 60px;
+            font-weight: bold;
+        }
+        .boost{
+            background-color: #252f5d;
+            border-color: #252f5d;
+            height: 50px; 
+            width: 90px;
+            color: #ffffff; 
+            border-radius: 8px;
+            margin-bottom: 60px; 
+            font-weight: bold;
+            text-align: center;
+        }
+        .logocenter {
+            display: block;
+            margin: 0 auto;
+            height: 240px;
+            width: 180px;
+            padding-bottom: 80px;
+        }
+      
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="app-main">
+            <div class="col-md-6 col-xl-4">
+                <div class="widget-content">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading" style="font-size: 16px;">@{{ user['username'] }}    
+                                <button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn input-info">
+                                    <span class="btn-icon-wrapper pr-2 opacity-4">
+                                        <i class="bi bi-coin"></i>
+                                    </span>
+                                    {{ rank['signins'] }}
+                                </button>
+                            </div>
+                        </div>
+                        <div class="widget-content-right">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image" height="40px" width="40px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6 col-xl-4">
+                <div class="widget-content">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <button type="button" aria-haspopup="true" aria-expanded="false" class="btn btn-infos">
+                                <span class="btn-icon-wrapper pr-2 opacity-4">
+                                    <img src="{{ url_for('static', filename='img/rank.png') }}" alt="BTC Image" height="20px" width="20px">
+                                </span>
+                                {{ rank['rank'] }}
+                            </button>
+                        </div>
+
+                        <div class="widget-content-right">
+                            <button type="button" aria-haspopup="true" aria-expanded="false" class="btn btn-infos">
+                                <span class="btn-icon-wrapper pr-2 opacity-4">
+                                    <i class="bi bi-alarm"></i>
+                                </span>
+                                {{ remaining_time }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 col-xl-4">
+                <div class="widget-content">
+                    <div class="widget-content-wrapper">
+                        <div class="widget-content-left">
+                            <button type="button" aria-haspopup="true" aria-expanded="false" class="pr-2 opacity-7 btn infos">
+                                <a class=" text-warning" href="{{ url_for('user_tasks', user_id=user['id']) }}">
+                                    <i class="bi bi-list-task"></i>
+                                    <span class="">Task</span>
+                                </a>
+                            </button>
+                        </div>
+
+                        <div class="widget-content-center"  style="width: 8px;">
+                            <!-- <form action="{{ url_for('signin', user_id=user['id']) }}" method="post">
+                                <button type="submit" class="pr-2 opacity-50 btn boost">
+                                    <i class="bi bi-hand-index"></i>
+                                    Boost
+                                </button>
+                            </form> 
+                        </div>
+
+                        <div class="widget-content-center">
+                            <a href="{{ url_for('more_rank', user_id=user['id']) }}">
+                                <button type="submit" class="pr-2 opacity-7 btn infos text-warning">
+                                    <i class="bi bi-person-badge"></i>
+                                    Ranks
+                                </button>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    
+
+                    <div>
+
+                        <form action="{{ url_for('signin', user_id=user['id']) }}" method="post">
+                            <span>
+                                <input type="image" src="{{ url_for('static', filename='btcc.png') }}" name="saveForm" class="logocenter" id="saveForm" />
+
+                                
+                            </span>
+                        </form>
+                       
+
+                    </div>
+                    <br><br>                 
+                    <footer class="footer">
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card widget-content" style="border-radius: 10px; background-color: #252f5d;">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <a href="{{ url_for('user_detail', user_id=user['id']) }}" method="post">
+                                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                                <i class="bi bi-alarm-fill"></i> 
+                                                M2E
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <a class="btn btn-primary-outline btn-sm btn-block text-white" href="{{ url_for('user_referral', user_id=user['id']) }}">
+                                            <i class="bi bi-info-circle"></i> R2E
+                                        </a>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <a class="btn btn-primary-outline btn-sm btn-block text-white" href="{{ url_for('volunteer', user_id=user['id']) }}">
+                                            <i class="bi bi-patch-check"></i> V2E
+                                        </a>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <a type="button" class="btn btn-primary-outline btn-sm btn-block" href="{{ url_for('h2e', user_id=user['id']) }}">
+                                            <i class="bi bi-airplane"></i> H2E
+                                        </a>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <button type="button" class="btn btn-primary-outline btn-sm btn-block" href="{{ url_for('h2e', user_id=user['id']) }}">
+                                            <i class="bi bi-building"></i> N2E
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+            </div>
+            <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+</body>
+</html> -->
+
+
+
+
+
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>M2EBOT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+         body {
+            background: linear-gradient(135deg, #0b0b16, #0c0c27, #0d0d20, #0f0f55, #0c0c1d);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: white;
+            
+        }
+
+        .btn-primary-outline {
+            background-color: transparent;
+            border-color: #252f5d;
+            height: 50px; 
+            width: 45px;
+            color: #fff; 
+            border-radius: 8px;
+        } 
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+ 
+  /* padding-left: 2.25rem;
+  padding-right: 3.25rem;
+  padding-bottom: 1.875rem;
+  padding-top: 3.5rem; */
+        }
+
+        .input-info{
+            background-color: #15152d;
+            border-color: #16163c;
+            height: 60px; 
+            width: 100%;
+            color: #fff; 
+            border-radius: 10px;
+            text-align: start;
+            padding-bottom: 22px;
+            margin: 2px;
+        }
+        /* .wrapper {
+  flex: 600px 0 1;
+  display: grid;
+  grid-template-columns: min-content 1fr;
+} */
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="app-main">
+            <div class="col-md-6 col-xl-4">
+                <div class="widget-content">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">@{{ user['username'] }}</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image" height="40px" width="40px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div class="app-page-title" style="padding-bottom: 20px;">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-actions">
+                                <div class="d-inline-block dropdown">
+                                    <h3>Daily Task</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-xl-4">
+                                <div class="scroll-area-sm" style="border-radius: 10px; height: 200px; margin-bottom: 90px;">
+                                    <p>National Task</>
+                                        {% if tasks %}
+                                        <li class="list-group-item input-info">
+                                            {% for task in tasks %}
+                                            <div class="card widget-content input-info">
+                                                <div class="widget-content-wrapper">
+                                                    <img src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image" height="50px" width="50px">
+                                                    <div class="widget-content-left">
+                                                        <div class="widget-heading" style="padding-top: 20px; font-style: normal; padding-left: 8px;">
+                                                            <a href="{{ task['url'] }}" target="_blank">
+                                                                {{ task['task'] }}
+                                                            </a>
+                                                        </div>
+                                                        <p style="color: yellow; padding-left: 10px;">+ 5 Boost</p>
+                                                    </div>
+                                                   
+                                                    <div class="widget-content-right">
+                                                        <form action="{{ url_for('complete_task', user_id=user['id'], task_id=task['id']) }}" method="post">
+                                                            <button type="submit" class="btn btn-warning btn-sm">
+                                                                <i class="bi bi-patch-check"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </li>                                        
+                                        {% else %}
+                                        <li class="list-group-item">No tasks available.</li>
+                                        {% endif %}
+                                </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-6 col-xl-4">
+                                <div class="scroll-area-sm" style="border-radius: 10px; height: 200px; margin-bottom: 90px;">
+                                    <p>Global Task</p>
+                                        {% if tasks %}
+                                        
+                                        <li class="list-group-item input-info">
+                                            {% for task in tasks %}
+                                            <div class="card widget-content input-info">
+                                                <div class="widget-content-wrapper">
+                                                    <img src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image" height="50px" width="50px">
+                                                    <div class="widget-content-left">
+                                                        <div class="widget-heading" style="padding-top: 20px; font-style: normal; padding-left: 8px;">
+                                                            <a href="{{ task['url'] }}" target="_blank">
+                                                                {{ task['task'] }}
+                                                            </a>
+                                                        </div>
+                                                        <p style="color: yellow; padding-left: 10px;">+ 5 Boost</p>
+                                                    </div>
+                                                   
+                                                    <div class="widget-content-right">
+                                                        <form action="{{ url_for('complete_task', user_id=user['id'], task_id=task['id']) }}" method="post">
+                                                            <button type="submit" class="btn btn-warning btn-sm">
+                                                                <i class="bi bi-patch-check"></i>
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </li>                                        
+                                        {% else %}
+                                        <li class="list-group-item">No tasks available.</li>
+                                        {% endif %}
+                                </div>
+                        </div>
+                    </div>
+
+
+                    <footer class="footer">
+                        <!-- <div class="row d-flex wrapper" style="grid-row: 1; grid-column: 1; width: 100vw;">
+                            <div class="col-2" style="color: #0b0b16;">
+                                <div class="widget-content-left">
+                                    <a href="{{ url_for('user_detail', user_id=user['id']) }}" method="post">
+                                        <button type="submit" type="button" class="btn btn-primary-outlin btn-sm btn-block">
+                                            <i class="bi bi-alarm-fill"></i> 
+                                            M2E
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="widget-content-right">
+                                    <a href="{{ url_for('user_referral', user_id=user['id']) }}" class="text-white">
+                                        <button type="button" class="btn btn-primary-outlin btn-sm btn-block">
+                                            <i class="bi bi-info-circle"></i>
+                                            R2E
+                                        </button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="widget-content-right">
+                                    <button type="button" class="btn btn-primary-outlin btn-sm btn-block">
+                                        <a href="{{ url_for('volunteer') }}">
+                                            <i class="bi bi-patch-check"></i>
+                                            V2E
+                                        </a>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="widget-content-right">
+                                    <button type="button" class="btn btn-primary-outlin btn-sm btn-block">
+                                        <i class="bi bi-airplane"></i>
+                                        H2E</button>
+                                </div>
+                            </div>
+                            <div class="col-2" style="color: #0b0b16;">
+                                <div class="widget-content-right">
+                                    <button type="button" class="btn btn-primary-outlin btn-sm btn-block">
+                                        <i class="bi bi-building"></i>
+                                        N2E</button>
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class="col-md-6 col-xl-4">
+                            <div class="card widget-content" style="border-radius: 10px; background-color: #0b0b16;">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="widget-content-left">
+                                        <a href="{{ url_for('user_detail', user_id=user['id']) }}" method="post">
+                                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                                <i class="bi bi-alarm-fill"></i> 
+                                                M2E
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <a href="{{ url_for('user_referral', user_id=user['id']) }}" class="text-white">
+                                            <button type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                                <i class="bi bi-info-circle"></i>
+                                                R2E
+                                            </button>
+                                        </a>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <button type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                            <a href="{{ url_for('volunteer') }}">
+                                                <i class="bi bi-patch-check"></i>
+                                                V2E
+                                            </a>
+                                        </button>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <button type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                            <i class="bi bi-airplane"></i>
+                                            H2E</button>
+                                    </div>
+                                    <div class="widget-content-right">
+                                        <button type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                            <i class="bi bi-building"></i>
+                                            N2E</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </footer>
+                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+            </div>
+        </div>
+        <script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+    </body>
+</html>
+
+
+
+
+
+
+

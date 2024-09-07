@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>M2EBOT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <style>
+         body {
+            background: linear-gradient(135deg, #0b0b16, #0c0c27, #0d0d20, #0f0f55, #0c0c1d);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: white;
+        }
+
+        .btn-primary-outline {
+            background-color: transparent;
+            height: 50px; 
+            width: 45px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .input-info{
+            background-color: transparent;
+            border-color: #ffffff;
+            height: 80px; 
+            width: 100%;
+            color: #fff; 
+            border-radius: 8px;
+            text-align: start;
+            padding-bottom: 22px;
+        }
+
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .logocenter {
+            display: block;
+            margin: 0 auto;
+            height: 80px;
+            width: 80px;
+            border-radius: 120px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-text{
+            font-weight: bold;
+        }
+
+
+  .overlay {
+    position: absolute;
+    top: 9;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60%;
+    width: 100%;
+    opacity: 0;
+    transition: .5s ease;
+    background-color: #000;
+  }
+  
+  .ccc:hover .overlay {
+    opacity: 0.7;
+  }
+  
+  .text {
+    color: white;
+    font-size: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .cc1{
+    width: 82%;
+    background: linear-gradient(#0f0f55, #0c0c1d);
+    color: #000;
+    padding: 4px 8px;
+    border: 1px solid #000;
+    height: 30px;
+    border-radius: 10px;
+  }
+  @media only screen and (max-width: 553px) {
+    .card{
+        margin-top: 25px;
+    }
+  }
+  .card{
+    color: #fff;
+    background-color: #0c0c27;
+    border: 1px solid;
+    padding: 10px;
+    box-shadow: 5px 10px #161664;
+  }
+
+  .glow-image {
+            display: block;
+            margin: 50px auto;
+            border-radius: 100px;
+            box-shadow: 0 0 5px 1px rgba(0, 255, 0, 0.8); /* Green light/glow effect */
+            transition: box-shadow 0.3s ease;
+        }
+
+        .glow-image:hover {
+            box-shadow: 0 0 25px 10px rgba(0, 255, 0, 1); /* Increase the glow on hover */
+        }
+       
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="app-main">
+            <div class="col-md-6 col-xl-4">
+                <div class="widget-content">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading">
+                            <i class="bi bi-person h5"></i>
+                            @{{ user['username'] }}</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image" height="50px" width="50px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div>
+                        <img class="logocenter" src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image">
+                    </div>
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-actions">
+                                <div class="d-inline-block dropdown">
+                                    <h1>Check-ins Summary</h1>
+                                </div>
+                                <h5 class="card-text">{{ user_country }}</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="card">
+                            <div class="ccc">
+                            <div class="col-md-6 col-xl-4 text-center">
+                                <!-- <h2 class="text-center">{{ username }}</h2>-->
+                                <h5 class="card-text">Global Check-Ins</h5>
+                                <p class="card-text">{{ total_signins }}</p>
+                                <h5 class="card-text">Global Users</h5>
+                                <p class="card-text">{{ total_global_users }}</p>
+                                <h5 class="card-text">National Check-Ins</h5>
+                                <p class="card-text">{{ national_signins }}</p>
+                                <h5 class="card-text">National Users</h5>
+                                <p class="card-text">{{ total_national_users }}</p>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    </div>
+
+                    <div class="footer container">
+                        <a href="{{ url_for('user_detail', user_id=user['id']) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-house h5"></i> 
+                                Home
+                            </button>
+                        </a>
+                        <a href="{{ url_for('user_activities', user_id=user['id']) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-list-task h5"></i> 
+                                Tasks
+                            </button>
+                        </a>
+                        <a href="{{ url_for('referral_stats', user_id=user.id) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-person-add h5"></i> 
+                                Friend
+                            </button>
+                        </a>
+                        <a href="{{ url_for('user_signins', user_id=user.id) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-bag-check h5"></i> 
+                                Total
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+        <script>
+            function copyToClipboard(referralLink) {
+                navigator.clipboard.writeText(referralLink).then(function() {
+                    alert('Referral link copied to clipboard!');
+                }, function(err) {
+                    alert('Failed to copy: ', err);
+                });
+            } 
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+

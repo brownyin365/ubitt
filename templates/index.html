@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Index Page</title>
+</head>
+<body>
+    <h1>Welcome to the User Dashboard</h1>
+    <h2>User List</h2>
+    <ul>
+        {% for user in users %}
+        <p>
+            {{ user.username }} - {{ user.country }}
+            <a href="{{ url_for('user_detail', user_id=user.id) }}">View Details</a>
+        </p>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>Index Page</title>
+</head>
+<body>
+    <h1>Welcome to the User Dashboard</h1>
+    
+    {% if user %}
+        <h2>User Details</h2>
+        <ul>
+            <li>Username: {{ user['username'] }}</li>
+            <li>Country: {{ user['country'] }}</li>
+            <li><a href="{{ url_for('user_detail', user_id=user['id']) }}">View Details</a></li>
+        </ul>
+    {% else %}
+        <p>No user found.</p>
+    {% endif %}
+</body>
+</html> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+

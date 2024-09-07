@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Setup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], input[type="url"], textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        textarea {
+            resize: vertical;
+        }
+        input[type="submit"] {
+            padding: 12px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .task-list {
+            margin-top: 20px;
+        }
+        .task-item {
+            border-bottom: 1px solid #ddd;
+            padding: 10px;
+        }
+        .task-item:last-child {
+            border-bottom: none;
+        }
+        .task-item a {
+            text-decoration: none;
+            color: #007bff;
+        }
+        .task-item a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Task Setup</h1>
+    
+    <!-- Form to assign a new task -->
+    <form action="/submit_task" method="post">
+        <label for="task_name">Task Name:</label>
+        <input type="text" id="task_name" name="task_name" placeholder="Enter task name" required>
+
+        <label for="task_description">Task Description:</label>
+        <textarea id="task_description" name="task_description" rows="4" placeholder="Enter task description" required></textarea>
+
+        <label for="task_url">Task URL:</label>
+        <input type="url" id="task_url" name="task_url" placeholder="Enter the task URL" required>
+
+        <label for="country">Task Country:</label>
+        <input type="country" id="country" name="country" placeholder="Enter the Country" required>
+
+        <input type="submit" value="Assign Task">
+    </form>
+    
+    <!-- List of tasks -->
+    <div class="task-list">
+        <h2>Available Tasks</h2>
+        <!-- Iterate through tasks and display them -->
+        {% for task in tasks %}
+            <div class="task-item">
+                <p><strong>{{ task.task }}</strong></p>
+                <p><strong>{{ task.country }}</strong></p>
+                <p><a href="{{ task.url }}" target="_blank">View Task</a></p>
+            </div>
+        {% endfor %}
+        <!-- If no tasks are available -->
+        {% if not tasks %}
+            <p>No active tasks available.</p>
+        {% endif %}
+    </div>
+</div>
+
+</body>
+</html>
+
+{% endblock %}
+

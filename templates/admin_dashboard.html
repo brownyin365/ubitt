@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Admin Dashboard</h1>
+
+        <!-- Statistics Section -->
+        <section class="mb-5">
+            <h2 class="mb-3">Statistics</h2>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Users</h5>
+                            <p class="card-text">{{ total_users }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Sign-ins</h5>
+                            <p class="card-text">{{ total_signins }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <div class="card text-white bg-info">
+                        <div class="card-body">
+                            <h5 class="card-title">Total Referrals</h5>
+                            <p class="card-text">{{ total_referrals }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Users Section -->
+        <section class="mb-5">
+            <h2 class="mb-3">Users</h2>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Country</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.country }}</td>
+                        <td>
+                            <a href="{{ url_for('user_detail', user_id=user.id) }}" class="btn btn-sm btn-primary">View Details</a>
+                            <a href="{{ url_for('update_country', user_id=user.id) }}" class="btn btn-sm btn-warning">Update Country</a>
+                            <a href="{{ url_for('user_signins', user_id=user.id) }}" class="btn btn-sm btn-info">View Sign-ins</a>
+                            <a href="{{ url_for('referral_stats', user_id=user.id) }}" class="btn btn-sm btn-secondary">View Referrals</a>
+                            <a href="{{ url_for('user_activities', user_id=user.id) }}" class="btn btn-sm btn-success">View Activities</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- Global Activities Section -->
+        <section class="mb-5">
+            <h2 class="mb-3">Global Activities</h2>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>URL</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activities %}
+                    <tr>
+                        <td>{{ activity.title }}</td>
+                        <td><a href="{{ activity.url }}" target="_blank">{{ activity.url }}</a></td>
+                        <td>{{ activity.points }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <!-- National Activities Section -->
+        <section>
+            <h2 class="mb-3">National Activities</h2>
+            <table class="table table-striped table-bordered">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Title</th>
+                        <th>URL</th>
+                        <th>Points</th>
+                        <th>Country</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for national_activity in national_activities %}
+                    <tr>
+                        <td>{{ national_activity.title }}</td>
+                        <td><a href="{{ national_activity.url }}" target="_blank">{{ national_activity.url }}</a></td>
+                        <td>{{ national_activity.points }}</td>
+                        <td>{{ national_activity.country }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

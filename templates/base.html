@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}M2EBOT{% endblock %}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #007bff;
+            overflow: hidden;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 16px;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            max-width: 1200px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            word-wrap: break-word;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .update-form {
+            text-align: center;
+        }
+        .update-form h2 {
+            margin-bottom: 20px;
+        }
+        .update-form input[type="text"], 
+        .update-form input[type="number"] {
+            padding: 10px;
+            width: 200px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .update-form input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .update-form input[type="submit"]:hover {
+            background-color: #218838;
+        }
+     
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="/admin/dashboard">Dashboard</a>
+        <a href="/admin/upload">National Activity</a> 
+        <a href="/admin/activity">Global Activity</a> 
+    </div>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

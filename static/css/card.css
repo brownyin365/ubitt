@@ -1,0 +1,105 @@
+:root{
+    --width: 200px;
+    --height: 300px;
+    --right: var(--width);
+    --bottom: var(--height);
+    --left: calc(var(--width) * -1);
+    --top: calc(var(--height) * -1);
+  }
+  
+  .card{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: var(--width);
+    height: var(--height);
+    
+    &__content{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      backdrop-filter: blur(10px);
+      width: inherit;
+      height: inherit;
+      border-radius: 5px;
+      background-color: #11111120;
+      box-shadow: 0 0 8px #ffffff25;
+      
+      &-img{
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+      }
+      
+      &-title{
+        margin-bottom: 15px;
+      }
+      
+      &-description{
+        margin-bottom: 25px;
+      }
+      
+      &-list-social{
+        display:flex;
+        justify-content: space-around;
+        width: 100%;
+      }
+      
+      &-social{
+        list-style:none;
+        
+        i{
+          color: #ffffff;
+        }
+      }
+    }
+    
+    &__background-circle{
+      width: 100px;
+      height: 100px;
+      background: #fe8800;
+      border-radius: 50%;
+      position: absolute;
+      z-index: -1;
+      
+      &:nth-child(1){
+        left: -50px;
+        top: -50px;
+        animation: moveTopToBottom 10s linear infinite alternate-reverse;
+      }
+      
+      &:nth-child(2){
+        right: -50px;
+        bottom: -50px;
+        animation: moveBottomToTop 10s linear infinite alternate-reverse;
+      }
+    }
+  }
+  
+  @keyframes moveTopToBottom{
+    0%{
+      transform: translateX(0px)
+    }
+    30%{
+      transform: translate(var(--right), 0)
+    }
+    100%{
+      transform: translate(var(--right), var(--bottom))
+    }
+  }
+  
+  @keyframes moveBottomToTop{
+    0%{
+      transform: translateX(0px)
+    }
+    30%{
+      transform: translate(var(--left), 0)
+    }
+    100%{
+      transform: translate(var(--left), var(--top))
+    }
+  }

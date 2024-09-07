@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>M2EBOT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+         body {
+            background: linear-gradient(135deg, #0b0b16, #0c0c27, #0d0d20, #0f0f55, #0c0c1d);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: white;
+            
+        }
+
+        .btn-primary-outline {
+            background-color: transparent;
+            height: 50px; 
+            width: 45px;
+            color: #fff;
+            text-align: center;
+        }
+
+        .input-info{
+            background-color: #14143a;
+            border-color: #16163c;
+            height: 80px; 
+            width: 100%;
+            color: #fff; 
+            border-radius: 10px;
+            text-align: start;
+            padding-bottom: 22px;
+            margin: 2px;
+        }
+
+        .input-nav{
+            border-color: #16163c;
+            height: 50px; 
+            width: 100%;
+            color: #fff; 
+            border-radius: 10px;
+        }
+ 
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .logocenter {
+            display: block;
+            margin: 0 auto;
+            height: 120px;
+            width: 120px;
+            border-radius: 120px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .centeredButton{
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 40px; 
+            border-radius: 35px;
+            font-weight: bolder;
+            width:70%;
+            margin-left:15%;
+            margin-right:15%;
+            }
+
+
+            .glow-image {
+            display: block;
+            margin: 50px auto;
+            width: 90px;
+            height: 90px;
+            border-radius: 100px;
+            box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.8); /* Green light/glow effect */
+            transition: box-shadow 0.3s ease;
+        }
+
+        .glow-image:hover {
+            box-shadow: 0 0 25px 10px rgba(0, 255, 0, 1); /* Increase the glow on hover */
+        }
+
+        .share{
+            padding: 18px;
+            justify-content: center;
+            align-items: center;
+            height: 55px; 
+            border-radius: 35px;
+            font-weight: bolder;
+            width:80%;
+            margin-left:10%;
+            margin-right:10%;
+        }
+      </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <div class="app-main">
+            <div class="col-md-6 col-xl-4">
+                <div class="widget-content">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading" style="font-size: 16px;" >
+                            <i class="bi bi-person h5"></i>
+                            @{{ user['username'] }}</div>
+                        </div>
+                        <div class="widget-content-right">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image" height="40px" width="40px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div>
+                        <img class="logocenter" src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image">
+                    </div>
+                    <br>
+                             
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-actions">
+                                <div class="d-inline-block dropdown">
+                                    <h3>Invite friends and Earn Rewards</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 col-xl-4">
+                            <p class="card-text text-center">Earn 10 UBIC Per Invite</p>
+                            <div class="card widget-content input-info">
+                                <div class="widget-content-wrapper text-white">
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" value="{{ referral_link }}" id="referralLink" readonly>
+                                        <button class="btn btn-primary" onclick="copyReferralLink()">
+                                            <i class="bi bi-copy h5"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                            <p class="card-text text-center">Total Invite: {{ total_referrals }}</p>
+                        </div>
+
+                        <div class="container text-center mt-5">
+                            <!-- Telegram Share Button -->
+                            <a href="https://t.me/share/url?url={{ referral_link }}&text=Join%20this%20UBI-Cent%20platform%20using%20my%20referral%20link!" target="_blank" class="btn btn-primary share">
+                                <i class="bi bi-telegram"></i> Invite frens
+                            </a>
+                        </div>                        
+                    </div>
+                    
+                    <div class="footer container">
+                        <a href="{{ url_for('user_detail', user_id=user['id']) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-house h5"></i> 
+                                Home
+                            </button>
+                        </a>
+                        <a href="{{ url_for('user_activities', user_id=user['id']) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-list-task h5"></i> 
+                                Tasks
+                            </button>
+                        </a>
+                        <a href="{{ url_for('referral_stats', user_id=user.id) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-person-add h5"></i> 
+                                Friend
+                            </button>
+                        </a>
+                        <a href="{{ url_for('user_signins', user_id=user.id) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-bag-check h5"></i> 
+                                Total
+                            </button>
+                        </a>
+                    </div>
+                  </div>
+            </div>
+        </div>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+        <script>
+            function copyReferralLink() {
+            var copyText = document.getElementById("referralLink");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            document.execCommand("copy");
+            alert("Referral link copied: " + copyText.value);
+        }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+
+

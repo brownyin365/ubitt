@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>M2EBOT</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="This is an example dashboard created using build-in elements and components.">
+    <meta name="msapplication-tap-highlight" content="no">
+    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" integrity="sha512-dPXYcDub/aeb08c63jRq/k6GaKccl256JQy/AnOq7CAnEZ9FzSL9wSbcZkMp4R26vBsMLFYH4kQ67/bbV8XaCQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #0b0b16, #0c0c27, #0d0d20, #0f0f55, #0c0c1d);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            color: white;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .btn-primary-outline {
+            background-color: transparent;
+            height: 50px; 
+            width: 45px;
+            color: #fff;
+            text-align: center;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100px;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .btn-infos{
+            background-color: transparent;
+            border-color: #f9caca;
+            height: 40px; 
+            width: 140px;
+            border-radius: 6px;
+            text-align: start;
+            color: #ffffff; /* Highlight color for the "Coming Soon" text */
+            font-weight: bold;
+            font-size: 1.0rem;
+        }
+        .input-info{
+            background-color: transparent;
+            /* border-color: #252f5d; */
+            height: 18px; 
+            width: 100px;
+            border-radius: 8px;
+            text-align: start;
+            padding-bottom: 32px;
+            color: #fff; /* Highlight color for the "Coming Soon" text */
+            font-weight: bold;
+            font-size: 1rem;
+        }
+        .infos{
+            /* background-color: #252f5d;
+            border-color: #7d7777; */
+            height: 35px; 
+            width: 80px;
+            color: #ffffff; 
+            border-radius: 4px;
+            text-align: start;
+            margin-bottom: 60px;
+            font-weight: bold;
+            font-size: 0.8rem;
+        }
+        .boost{
+            background-color: #252f5d;
+            border-color: #252f5d;
+            height: 50px; 
+            width: 90px;
+            color: #ffffff; 
+            border-radius: 8px;
+            margin-bottom: 60px; 
+            font-weight: bold;
+            text-align: center;
+        }
+        .logocenter{
+            display: block;
+            margin: 0 auto;
+            height: auto;
+            width: 200px;
+            padding-bottom: 80px;
+        }
+
+        html, body {width: auto!important; overflow-x: hidden!important; height: auto!;} 
+
+        html {
+        overflow-x: hidden;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+         .glow-image {
+            display: block;
+            margin: 50px auto;
+            width: 200px;
+            height: auto;
+            transition: box-shadow 0.3s ease;
+            border-radius: 100px;
+            box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.8); 
+        }
+
+
+        /* Responsive image sizing */
+        @media (max-width: 768px) {
+            .glow-image {
+                width: 200px;
+                height: auto;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .glow-image {
+                width: 200px;
+                height: auto;
+            }
+        }
+
+             /* CSS for fade-out effect */
+             .fade-out {
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        } */
+
+
+           /* Existing styles... */
+        
+        /* Loader CSS */
+        .loader {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Ensure loader is on top */
+        }
+
+        .loader .spinner-border {
+            width: 3rem;
+            height: 3rem;
+            color: white;
+        }
+
+        /* Hide loader after content is loaded */
+        .hidden {
+            display: none;
+        }
+
+        /* Rest of your styles... */
+    </style>
+</head>
+
+<body>
+      <!-- Page Loader -->
+      <div class="loader" id="pageLoader">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+    <div class="app-container">
+        <div class="app-main">
+            <div class="col-md-6 col-xl-4">
+                <div class="widget-content" style="height: 40px;">
+                    <div class="widget-content-wrapper text-white">
+                        <div class="widget-content-left">
+                            <div class="widget-heading" style="font-size: 16px;">
+                                <i class="bi bi-person h5"></i>
+                                @{{ user['username'] }}    
+                            </div>
+                        </div>
+                        <div class="widget-content-right">
+                            <img src="{{ url_for('static', filename='logo.png') }}" alt="BTC Image" height="50px" width="50px">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    <div>
+                        <p style="text-align: center;">$UBIC</p>
+                       <h1 style="text-align: center; font-weight: bold;"> {{ rank['signins'] }}</h1>
+                    </div>
+                    <div>
+                        <div class="container mt-5 d-flex justify-content-center">
+                            <form id="signinForm" action="{{ url_for('signin', user_id=user['id']) }}" method="post" class="text-center">
+                                <span>
+                                    <input type="image" src="{{ url_for('static', filename='ubic.png') }}" name="saveForm" class="glow-image" id="saveForm" alt="Sign In" />
+                                </span>
+                            </form>
+                        </div>
+
+                       <span>
+                        <p style="text-align: center; font-weight: bolder;">Next Check-in</p>
+                        <div style="text-align:center;">
+                        <button type="button" aria-haspopup="true" aria-expanded="false" class="btn btn-infos" style="text-align: center;">
+                            <span class="btn-icon-wrapper pr-2 opacity-4">
+                                <i style="text-align: start;" class="bi bi-alarm"></i>
+                            </span>
+                            {{ remaining_time }}
+                        </button>
+                        </div>
+                       </span>
+                       {% if not user['country_updated'] %}
+                       <a id="button" href="{{ url_for('update_country', user_id=user['id']) }}">
+                           <i class="bi bi-globe h5"></i> 
+                       </a>
+                       {% endif %}
+                    </div>
+                    <br>
+                    <br>
+                    <div class="footer container">
+                        <a href="{{ url_for('user_detail', user_id=user['id']) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-house h5"></i> 
+                                Home
+                            </button>
+                        </a>
+                        <a href="{{ url_for('user_activities', user_id=user['id']) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-list-task h5"></i> 
+                                Tasks
+                            </button>
+                        </a>
+                        <a href="{{ url_for('referral_stats', user_id=user['id']) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-person-add"></i>
+                                Friends
+                            </button>
+                        </a>
+                        <a href="{{ url_for('user_signins', user_id=user.id) }}" method="post">
+                            <button type="submit" type="button" class="btn btn-primary-outline btn-sm btn-block">
+                                <i class="bi bi-bag-check h5"></i> 
+                                Total
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+    <script src="https://demo.dashboardpack.com/architectui-html-free/assets/scripts/main.js"></script>
+
+    <script>
+        // Hide the loader once the page is fully loaded
+        window.addEventListener('load', function () {
+            const loader = document.getElementById('pageLoader');
+            loader.classList.add('hidden'); // Add 'hidden' class to hide loader
+        });
+
+    </script>
+
+</body>
+</html>

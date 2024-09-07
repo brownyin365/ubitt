@@ -1,0 +1,30 @@
+<!-- templates/start_bot.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Bot</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+    <script async src="https://telegram.org/js/telegram-widget.js?22" data-telegram-login="m2e3bot_bot" data-size="large" data-onauth="onTelegramAuth(user)" data-request-access="write"></script>
+<script type="text/javascript">
+  function onTelegramAuth(user) {
+    alert('Logged in as ' + user.first_name + ' ' + user.last_name + ' (' + user.id + (user.username ? ', @' + user.username : '') + ')');
+  }
+</script>
+
+
+    <div class="container mt-5">
+        <h1>Welcome to the Telegram Bot</h1>
+        <p>To start interacting with the bot, follow these instructions:</p>
+        <ul>
+            <li>Open your Telegram app.</li>
+            <li>Search for the bot using its username.</li>
+            <li>Click "Start" or type /start to begin interacting with the bot.</li>
+        </ul>
+        <p>Here is the link to your bot: <a href="https://t.me/m2e3bot_bot" target="_blank">Start Bot</a></p>
+    </div>
+</body>
+</html>
